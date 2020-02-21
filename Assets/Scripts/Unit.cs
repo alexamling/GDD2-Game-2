@@ -35,13 +35,13 @@ public class Unit : MonoBehaviour, IDamageable
         
     }
 
-    void PathTo(Vector3 target)
+    public void PathTo(Vector3 target)
     {
         // maybe more logic in the future
         nav.SetDestination(target);
     }
 
-    void Attack(IDamageable target)
+    public void Attack(IDamageable target)
     {
 
     }
