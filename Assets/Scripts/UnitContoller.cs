@@ -26,6 +26,16 @@ public class UnitContoller : MonoBehaviour
         //TODO: instance render each type of unit and landmark
     }
 
+    void DeselectUnits()
+    {
+
+    }
+
+    void ToggleUnitSelection(ISelectable unit)
+    {
+    
+    }
+
     void SpawnUnits(UnitData[] unitData)
     {
 

@@ -8,13 +8,18 @@ public interface IDamageable
     void OnHit(AttackData attackData);
 }
 
+public interface ISelectable
+{
+    void Select();
+}
+
 public struct AttackData
 {
     GameObject origin;
     float damage;
 }
 
-public class Unit : MonoBehaviour
+public class Unit : MonoBehaviour, IDamageable
 {
     private NavMeshAgent nav;
 
@@ -39,5 +44,10 @@ public class Unit : MonoBehaviour
     void Attack(IDamageable target)
     {
 
+    }
+
+    public void OnHit(AttackData attackData)
+    {
+        throw new System.NotImplementedException();
     }
 }
