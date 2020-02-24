@@ -14,7 +14,7 @@ public struct UnitData
     public GameObject prefab;
     public int activeCount;
     public Material material;
-    public GameObject[] instances;
+    public Unit[] instances;
     public Matrix4x4[] transforms;
 
    
@@ -37,10 +37,14 @@ public class UnitContoller : MonoBehaviour
         enemyUnitData = SetupUnitData(enemyUnitData);
 
         // TODO: temp fix for testing REMOVE THIS
-        enemyUnitData[0].activeCount = enemyUnitData[0].maxCount;
-        for (int i = 0; i < enemyUnitData[0].maxCount; i++)
+        for (int a = 0; a < enemyUnitData.Length; a++)
         {
-            enemyUnitData[0].instances[i].transform.position = new Vector3(UnityEngine.Random.Range(-10, 10), UnityEngine.Random.Range(10, 100), UnityEngine.Random.Range(-10, 10));
+            enemyUnitData[a].activeCount = enemyUnitData[a].maxCount;
+            for (int i = 0; i < enemyUnitData[a].maxCount; i++)
+            {
+                enemyUnitData[a].instances[i].transform.position = new Vector3(UnityEngine.Random.Range(-100, 100), UnityEngine.Random.Range(10, 100), UnityEngine.Random.Range(-100, 100));
+            }
+
         }
 
     }
@@ -49,7 +53,7 @@ public class UnitContoller : MonoBehaviour
     {
         for (int i = 0; i < data.Length; i++)
         {
-            data[i].instances = new GameObject[data[i].maxCount];
+            data[i].instances = new Unit[data[i].maxCount];
             data[i].transforms = new Matrix4x4[data[i].maxCount];
             for (int j = 0; j < data[i].maxCount; j++)
             {
@@ -67,7 +71,10 @@ public class UnitContoller : MonoBehaviour
     {
         //TODO: instance render each type of unit and landmark
         UpdateUnitData(enemyUnitData);
-        InstanceRenderer.Render(enemyUnitData[0].mesh, enemyUnitData[0].material, enemyUnitData[0].transforms, enemyUnitData[0].activeCount);
+        for (int i = 0; i < enemyUnitData.Length; i++)
+        {
+            InstanceRenderer.Render(enemyUnitData[i].mesh, enemyUnitData[i].material, enemyUnitData[i].transforms, enemyUnitData[i].activeCount);
+        }
     }
 
     private void UpdateUnitData(UnitData[] data)
@@ -76,8 +83,20 @@ public class UnitContoller : MonoBehaviour
         {
             for (int j = 0; j < data[i].maxCount; j++)
             {
-                GameObject instance = data[i].instances[j];
+                Unit instance = data[i].instances[j];
                 data[i].transforms[j] = Matrix4x4.TRS(instance.transform.position, instance.transform.rotation, instance.transform.localScale);
+            }
+        }
+    }
+
+    public void UnitTest(Vector3 target)
+    {
+
+        for (int i = 0; i < enemyUnitData.Length; i++)
+        {
+            for (int j = 0; j < enemyUnitData[i].maxCount; j++)
+            {
+                enemyUnitData[i].instances[j].PathTo(target);
             }
         }
     }

@@ -10,6 +10,7 @@ public class GameController : MonoBehaviour
     // TODO: Level controller
 
     // TODO: Unit controller
+    public UnitContoller unitContoller;
 
     public GameObject playerPrefab;
 
@@ -32,6 +33,7 @@ public class GameController : MonoBehaviour
 
     void Start()
     {
+        unitContoller = gameObject.GetComponent<UnitContoller>();
         camera = gameObject.GetComponent<Camera>();
         orthoUp = new Vector3(transform.up.x, 0, transform.up.z);
 
@@ -91,11 +93,16 @@ public class GameController : MonoBehaviour
             // read raycast
             if (hit)
             {
-                if (rayHit.collider.gameObject.GetComponent<NavMeshSurface>()) player.PathTo(rayHit.point);
+                if (rayHit.collider.gameObject.GetComponent<NavMeshSurface>())
+                {
+                    player.PathTo(rayHit.point);
+                    Debug.Log("player path: " + rayHit.point);
+                }
             }
             // if you hit an enemy unit or landmark, attack it
             // if you hit terrain, move towards it
         }
+        unitContoller.UnitTest(player.transform.position);
 
         // space pressed
         // pause/unpause
