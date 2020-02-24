@@ -16,6 +16,8 @@ public struct UnitData
     public Material material;
     public GameObject[] instances;
     public Matrix4x4[] transforms;
+
+   
 }
 public class UnitContoller : MonoBehaviour
 {
@@ -26,8 +28,12 @@ public class UnitContoller : MonoBehaviour
     public UnitData[] enemyUnitData;
     // enemy landmarks
 
+    public EnemyNav enemyNav;
+
     void Start()
     {
+
+        enemyNav = GameObject.FindGameObjectWithTag("NavController").GetComponent<EnemyNav>();
         enemyUnitData = SetupUnitData(enemyUnitData);
 
         // TODO: temp fix for testing REMOVE THIS
@@ -36,6 +42,7 @@ public class UnitContoller : MonoBehaviour
         {
             enemyUnitData[0].instances[i].transform.position = new Vector3(UnityEngine.Random.Range(-10, 10), UnityEngine.Random.Range(10, 100), UnityEngine.Random.Range(-10, 10));
         }
+
     }
 
     private UnitData[] SetupUnitData(UnitData[] data)
@@ -47,6 +54,7 @@ public class UnitContoller : MonoBehaviour
             for (int j = 0; j < data[i].maxCount; j++)
             {
                 GameObject instance = Instantiate(data[i].prefab);
+                enemyNav.Units.Add(instance.GetComponent<Unit>());
                 instance.transform.position = new Vector3(0, -1000, 0);
                 data[i].instances[j] = instance;
                 data[i].transforms[j] = Matrix4x4.TRS(instance.transform.position, instance.transform.rotation, instance.transform.localScale);

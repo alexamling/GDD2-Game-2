@@ -23,6 +23,8 @@ public class GameController : MonoBehaviour
     new private Camera camera;
     private Vector3 orthoUp;
 
+    EnemyNav enemyNav;
+
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
@@ -32,6 +34,8 @@ public class GameController : MonoBehaviour
     {
         camera = gameObject.GetComponent<Camera>();
         orthoUp = new Vector3(transform.up.x, 0, transform.up.z);
+
+        enemyNav = enemyNav = GameObject.FindGameObjectWithTag("NavController").GetComponent<EnemyNav>();
     }
 
     void Update()
@@ -97,6 +101,18 @@ public class GameController : MonoBehaviour
         // pause/unpause
 
         // TODO: all other hotkeys
+
+        //Using B as a tester key, definitely subject to change
+        if(Input.GetKeyDown(KeyCode.B))
+        {
+            if(hit)
+            {
+                if (rayHit.collider.gameObject.GetComponent<NavMeshSurface>())
+                {
+                    enemyNav.FindPath(rayHit.point);
+                }
+            }
+        }
 
         // esc pressed
         // quit - TODO: pause menu
