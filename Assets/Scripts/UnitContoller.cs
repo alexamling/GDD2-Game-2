@@ -57,7 +57,7 @@ public class UnitContoller : MonoBehaviour
             data[i].transforms = new Matrix4x4[data[i].maxCount];
             for (int j = 0; j < data[i].maxCount; j++)
             {
-                GameObject instance = Instantiate(data[i].prefab);
+                Unit instance = Instantiate(data[i].prefab.GetComponent<Unit>());
                 enemyNav.Units.Add(instance.GetComponent<Unit>());
                 instance.transform.position = new Vector3(0, -1000, 0);
                 data[i].instances[j] = instance;
