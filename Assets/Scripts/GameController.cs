@@ -37,7 +37,7 @@ public class GameController : MonoBehaviour
         camera = gameObject.GetComponent<Camera>();
         orthoUp = new Vector3(transform.up.x, 0, transform.up.z);
 
-        enemyNav = enemyNav = GameObject.FindGameObjectWithTag("NavController").GetComponent<EnemyNav>();
+        enemyNav = GameObject.FindGameObjectWithTag("NavController").GetComponent<EnemyNav>();
     }
 
     void Update()
@@ -116,6 +116,7 @@ public class GameController : MonoBehaviour
             {
                 if (rayHit.collider.gameObject.GetComponent<NavMeshSurface>())
                 {
+                    
                     enemyNav.FindPath(rayHit.point);
                 }
             }

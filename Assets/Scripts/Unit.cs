@@ -38,7 +38,7 @@ public class Unit : MonoBehaviour, IDamageable
     public void PathTo(Vector3 target)
     {
         // maybe more logic in the future
-        nav.destination = target;
+       nav.destination = target;
     }
 
     public void Attack(IDamageable target)

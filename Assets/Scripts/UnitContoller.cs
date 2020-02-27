@@ -29,11 +29,15 @@ public class UnitContoller : MonoBehaviour
     // enemy landmarks
 
     public EnemyNav enemyNav;
+    public GameObject navControllerPrefab;
+    public GameObject enemyNavController;
+
 
     void Start()
     {
 
-        enemyNav = GameObject.FindGameObjectWithTag("NavController").GetComponent<EnemyNav>();
+        enemyNavController = Instantiate(navControllerPrefab);
+        enemyNav = enemyNavController.GetComponent<EnemyNav>();
         enemyUnitData = SetupUnitData(enemyUnitData);
 
         // TODO: temp fix for testing REMOVE THIS
@@ -42,7 +46,7 @@ public class UnitContoller : MonoBehaviour
             enemyUnitData[a].activeCount = enemyUnitData[a].maxCount;
             for (int i = 0; i < enemyUnitData[a].maxCount; i++)
             {
-                enemyUnitData[a].instances[i].transform.position = new Vector3(UnityEngine.Random.Range(-100, 100), UnityEngine.Random.Range(10, 100), UnityEngine.Random.Range(-100, 100));
+                enemyUnitData[a].instances[i].transform.position = new Vector3(UnityEngine.Random.Range(-100, 100),  UnityEngine.Random.Range(-100, 100));
             }
 
         }

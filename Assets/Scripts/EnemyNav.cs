@@ -9,10 +9,15 @@ public class EnemyNav : MonoBehaviour
 
     private NavMeshAgent nav;
     public List<Unit> units;
+    public GameObject navBrainPrefab;
+    private GameObject navBrainGameObject;
+    private NavBrain navBrain;
     void Start()
     {
         nav = GetComponent<NavMeshAgent>();
         units = new List<Unit>();
+        navBrainGameObject = Instantiate(navBrainPrefab, transform);
+        navBrain = navBrainGameObject.GetComponent<NavBrain>();
     }
 
     public List<Unit> Units
@@ -22,7 +27,7 @@ public class EnemyNav : MonoBehaviour
 
     public void FindPath(Vector3 target)
     {
-        nav.SetDestination(target);
+        navBrain.FindPath(target);
         
     }
 
