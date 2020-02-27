@@ -46,7 +46,7 @@ public class UnitContoller : MonoBehaviour
             enemyUnitData[a].activeCount = enemyUnitData[a].maxCount;
             for (int i = 0; i < enemyUnitData[a].maxCount; i++)
             {
-                enemyUnitData[a].instances[i].transform.position = new Vector3(UnityEngine.Random.Range(-100, 100),  UnityEngine.Random.Range(-100, 100));
+                enemyUnitData[a].instances[i].transform.position = new Vector3(UnityEngine.Random.Range(-100, 100),  UnityEngine.Random.Range(-100, 100), UnityEngine.Random.Range(-100, 100));
             }
 
         }
