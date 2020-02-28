@@ -14,8 +14,6 @@ public class GameController : MonoBehaviour
 
     public GameObject playerPrefab;
 
-    /* TODO: hide and auto place the player prefab */ public Player player;
-
     public float camSpeed = 50.0f;
     public float zoomSpeed = 1.0f;
     public float minZoom = 5.0f;
@@ -95,14 +93,14 @@ public class GameController : MonoBehaviour
             {
                 if (rayHit.collider.gameObject.GetComponent<NavMeshSurface>())
                 {
-                    player.PathTo(rayHit.point);
+                    unitContoller.player.PathTo(rayHit.point);
                     Debug.Log("player path: " + rayHit.point);
                 }
             }
             // if you hit an enemy unit or landmark, attack it
             // if you hit terrain, move towards it
         }
-        unitContoller.UnitTest(player.transform.position);
+        unitContoller.UnitTest(unitContoller.player.transform.position);
 
         // space pressed
         // pause/unpause
