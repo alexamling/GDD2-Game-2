@@ -12,6 +12,7 @@ public class EnemyNav : MonoBehaviour
     public GameObject navBrainPrefab;
     private GameObject navBrainGameObject;
     private NavBrain navBrain;
+
     void Start()
     {
         nav = GetComponent<NavMeshAgent>();
@@ -28,7 +29,6 @@ public class EnemyNav : MonoBehaviour
     public void FindPath(Vector3 target)
     {
         navBrain.FindPath(target);
-        
     }
 
 
@@ -37,6 +37,4 @@ public class EnemyNav : MonoBehaviour
     {
         
     }
-
-   
 }

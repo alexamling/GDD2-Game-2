@@ -46,7 +46,8 @@ public class UnitContoller : MonoBehaviour
         {
             for (int i = 0; i < enemyUnitData[a].activeInstances.transform.childCount; i++)
             {
-                enemyUnitData[a].activeInstances.transform.GetChild(i).transform.position = new Vector3(UnityEngine.Random.Range(-100, 100), UnityEngine.Random.Range(10, 100), UnityEngine.Random.Range(-100, 100));
+                // TODO fix this but not really because we should just remove it anyway
+                enemyUnitData[a].activeInstances.transform.GetChild(i).transform.position = new Vector3(UnityEngine.Random.Range(-10, 10), 0, UnityEngine.Random.Range(-10, 10));
                 enemyUnitData[a].activeCount += 1;
             }
 
@@ -59,14 +60,17 @@ public class UnitContoller : MonoBehaviour
         for (int i = 0; i < data.Length; i++)
         {
             data[i].activeInstances = new GameObject();
+            data[i].activeInstances.name = data[i].prefab.name + "active instances";
             data[i].inactiveInstances = new GameObject();
+            data[i].inactiveInstances.name = data[i].prefab.name + "inactive instances";
 
             data[i].transforms = new Matrix4x4[data[i].maxCount];
             for (int j = 0; j < data[i].maxCount; j++)
             {
-                Unit instance = Instantiate(data[i].prefab.GetComponent<Unit>());
-                enemyNav.Units.Add(instance.GetComponent<Unit>());
-                instance.transform.position = new Vector3(0, -1000, 0);
+                Unit instance = Instantiate(data[i].prefab).GetComponent<Unit>();
+                enemyNav.Units.Add(instance);
+                //instance.gameObject.SetActive(false);
+                //instance.transform.position = new Vector3(0, -1000, 0);
                 // TODO swap this out: instance.transform.parent = enemyUnitData[i].inactiveInstances.transform;
                 instance.transform.parent = enemyUnitData[i].activeInstances.transform;
                 data[i].transforms[j] = Matrix4x4.TRS(instance.transform.position, instance.transform.rotation, instance.transform.localScale);
@@ -89,9 +93,9 @@ public class UnitContoller : MonoBehaviour
     {
         for (int i = 0; i < data.Length; i++)
         {
-            for (int j = 0; i < data[i].activeInstances.transform.childCount; j++)
+            for (int j = 0; j < data[i].activeInstances.transform.childCount; j++)
             {
-                Transform instanceTransform = data[i].activeInstances.transform.GetChild(i);
+                Transform instanceTransform = data[i].activeInstances.transform.GetChild(j);
                 data[i].transforms[j] = Matrix4x4.TRS(instanceTransform.position, instanceTransform.rotation, instanceTransform.localScale);
             }
         }
@@ -102,12 +106,17 @@ public class UnitContoller : MonoBehaviour
 
         for (int i = 0; i < enemyUnitData.Length; i++)
         {
-            for (int j = 0; i < enemyUnitData[i].activeInstances.transform.childCount; j++)
+            for (int j = 0; j < enemyUnitData[i].activeInstances.transform.childCount; j++)
             {
-                Unit instance = enemyUnitData[i].activeInstances.transform.GetChild(i).GetComponent<Unit>();
+                Unit instance = enemyUnitData[i].activeInstances.transform.GetChild(j).GetComponent<Unit>();
                 instance.PathTo(target);
             }
         }
+    }
+
+    public void FindPath(Vector3 hit)
+    {
+        enemyNav.FindPath(hit);
     }
 
     void DeselectUnits()

@@ -219,22 +219,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1976df9e4f946dc49b443573d3488d71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 1525780510}
   enemyUnitData:
   - mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
     maxCount: 500
     prefab: {fileID: 2781718173726605479}
     activeCount: 0
     material: {fileID: 2100000, guid: bc7b1ef537b60384c9ffa76ea6565911, type: 2}
-    instances: []
+    activeInstances: {fileID: 0}
+    inactiveInstances: {fileID: 0}
     transforms: []
   - mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
     maxCount: 500
     prefab: {fileID: 2781718173726605479}
     activeCount: 0
     material: {fileID: 2100000, guid: 884c1cb6a90869040ba83aaf41fda4d3, type: 2}
-    instances: []
+    activeInstances: {fileID: 0}
+    inactiveInstances: {fileID: 0}
     transforms: []
   enemyNav: {fileID: 1458415267}
+  navControllerPrefab: {fileID: 1642791531316330161, guid: 53a71fa47941de14989aa107cd70ac84,
+    type: 3}
+  enemyNavController: {fileID: 0}
 --- !u!114 &177477352
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -250,7 +256,6 @@ MonoBehaviour:
   unitContoller: {fileID: 177477351}
   playerPrefab: {fileID: 7146553136568029599, guid: 0cb420333a94611428a9468dc1944814,
     type: 3}
-  player: {fileID: 1525780510}
   camSpeed: 50
   zoomSpeed: 1
   minZoom: 5
@@ -268,6 +273,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   units: []
+  navBrainPrefab: {fileID: 8292704252970642446, guid: f9d910f14abdc034aa80a83332ba52dd,
+    type: 3}
 --- !u!1 &587042603
 GameObject:
   m_ObjectHideFlags: 0
@@ -497,6 +504,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   units: []
+  navBrainPrefab: {fileID: 8292704252970642446, guid: f9d910f14abdc034aa80a83332ba52dd,
+    type: 3}
 --- !u!195 &1458415268
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -695,16 +704,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TestUnit
-      objectReference: {fileID: 0}
-    - target: {fileID: 3788658905524487403, guid: edc9c5c368ae3de4e9c8020f9c202e1c,
-        type: 3}
-      propertyPath: avoidancePriority
-      value: 99
-      objectReference: {fileID: 0}
-    - target: {fileID: 3788658905524487403, guid: edc9c5c368ae3de4e9c8020f9c202e1c,
-        type: 3}
-      propertyPath: m_ObstacleAvoidanceType
-      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: edc9c5c368ae3de4e9c8020f9c202e1c, type: 3}
