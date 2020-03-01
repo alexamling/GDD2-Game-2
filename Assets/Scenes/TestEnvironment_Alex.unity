@@ -107,7 +107,7 @@ NavMeshSettings:
     serializedVersion: 2
     agentTypeID: 0
     agentRadius: 0.5
-    agentHeight: 2
+    agentHeight: 0.5
     agentSlope: 40.4
     agentClimb: 1.01
     ledgeDropHeight: 0
@@ -322,7 +322,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_BuildHeightMesh: 0
-  m_NavMeshData: {fileID: 23800000, guid: 84ded50ccb8738043b5608c6dd091c8b, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 65cffb36713ff30449a146da8c4955ea, type: 2}
 --- !u!154 &587042605
 TerrainCollider:
   m_ObjectHideFlags: 0

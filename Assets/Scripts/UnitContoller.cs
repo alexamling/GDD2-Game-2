@@ -60,19 +60,21 @@ public class UnitContoller : MonoBehaviour
         for (int i = 0; i < data.Length; i++)
         {
             data[i].activeInstances = new GameObject();
-            data[i].activeInstances.name = data[i].prefab.name + "active instances";
+            data[i].activeInstances.name = data[i].prefab.name + " active instances";
             data[i].inactiveInstances = new GameObject();
-            data[i].inactiveInstances.name = data[i].prefab.name + "inactive instances";
+            data[i].inactiveInstances.name = data[i].prefab.name + " inactive instances";
 
             data[i].transforms = new Matrix4x4[data[i].maxCount];
             for (int j = 0; j < data[i].maxCount; j++)
             {
                 Unit instance = Instantiate(data[i].prefab).GetComponent<Unit>();
                 enemyNav.Units.Add(instance);
-                //instance.gameObject.SetActive(false);
-                //instance.transform.position = new Vector3(0, -1000, 0);
-                // TODO swap this out: instance.transform.parent = enemyUnitData[i].inactiveInstances.transform;
-                instance.transform.parent = enemyUnitData[i].activeInstances.transform;
+
+                instance.gameObject.SetActive(false);
+
+                instance.transform.parent = enemyUnitData[i].inactiveInstances.transform;
+                //instance.transform.parent = enemyUnitData[i].activeInstances.transform;
+
                 data[i].transforms[j] = Matrix4x4.TRS(instance.transform.position, instance.transform.rotation, instance.transform.localScale);
             }
         }
@@ -129,8 +131,14 @@ public class UnitContoller : MonoBehaviour
     
     }
 
-    void SpawnUnits(/*TODO: input values*/)
+    public void SpawnUnits(/*TODO: input values*/)
     {
+        Unit instance = enemyUnitData[0].inactiveInstances.transform.GetChild(0).GetComponent<Unit>();
+        if (!instance) Debug.LogError("No inactive instances");
 
+        instance.gameObject.SetActive(true);
+        instance.transform.parent = enemyUnitData[0].activeInstances.transform;
+        instance.transform.position = new Vector3(UnityEngine.Random.Range(-100,100), 0, UnityEngine.Random.Range(-100, 100));
+        enemyUnitData[0].activeCount++;
     }
 }

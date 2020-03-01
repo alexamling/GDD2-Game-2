@@ -96,10 +96,15 @@ public class GameController : MonoBehaviour
             // if you hit an enemy unit or landmark, attack it
             // if you hit terrain, move towards it
         }
+
         unitContoller.UnitTest(unitContoller.player.transform.position);
 
         // space pressed
         // pause/unpause
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            unitContoller.SpawnUnits();
+        }
 
         // TODO: all other hotkeys
 
