@@ -14,12 +14,13 @@ public class GameController : MonoBehaviour
 
     public GameObject playerPrefab;
 
-    public float camSpeed = 50.0f;
+    public float playerSpeed = 50.0f;
     public float zoomSpeed = 1.0f;
     public float minZoom = 5.0f;
     public float maxZoom = 45.0f;
 
     new private Camera camera;
+    private Vector3 orthoRight;
     private Vector3 orthoUp;
 
     private void Awake()
@@ -30,8 +31,9 @@ public class GameController : MonoBehaviour
     void Start()
     {
         unitContoller = gameObject.GetComponent<UnitContoller>();
-        camera = gameObject.GetComponent<Camera>();
-        orthoUp = new Vector3(transform.up.x, 0, transform.up.z);
+        camera = transform.GetComponentInChildren<Camera>();
+        orthoRight = new Vector3(camera.transform.right.x, 0, camera.transform.right.z);
+        orthoUp = new Vector3(camera.transform.up.x, 0, camera.transform.up.z);
     }
 
     void Update()
@@ -52,11 +54,18 @@ public class GameController : MonoBehaviour
     void ProcessInput()
     {
         // camera movement
+        /*
         viewPortPos = camera.ScreenToViewportPoint(Input.mousePosition);
         if (viewPortPos.x > .9f) { transform.position += transform.right * Mathf.Clamp01((viewPortPos.x - .9f) * 10) * Time.deltaTime * camSpeed; }
         if (viewPortPos.x < .1f) { transform.position += transform.right * Mathf.Clamp01((.1f - viewPortPos.x) * 10 ) * Time.deltaTime * -camSpeed; }
         if (viewPortPos.y > .9f) { transform.position += orthoUp * Mathf.Clamp01((viewPortPos.y - .9f) * 10) * Time.deltaTime * camSpeed; }
         if (viewPortPos.y < .1f) { transform.position += orthoUp * Mathf.Clamp01((.1f - viewPortPos.y) * 10) * Time.deltaTime * -camSpeed; }
+        */
+
+        if (Input.GetKey(KeyCode.W)) { transform.position += orthoUp * Time.deltaTime * playerSpeed; }
+        if (Input.GetKey(KeyCode.S)) { transform.position += orthoUp * Time.deltaTime * -playerSpeed; }
+        if (Input.GetKey(KeyCode.A)) { transform.position += orthoRight * Time.deltaTime * -playerSpeed; }
+        if (Input.GetKey(KeyCode.D)) { transform.position += orthoRight * Time.deltaTime * playerSpeed; }
 
         // zoom
         scroll = Input.mouseScrollDelta.y;
@@ -89,7 +98,8 @@ public class GameController : MonoBehaviour
             {
                 if (rayHit.collider.gameObject.GetComponent<NavMeshSurface>())
                 {
-                    unitContoller.player.PathTo(rayHit.point);
+                    //unitContoller.player.PathTo(rayHit.point);
+                    Debug.DrawLine(transform.position, rayHit.point);
                     Debug.Log("player path: " + rayHit.point);
                 }
             }
