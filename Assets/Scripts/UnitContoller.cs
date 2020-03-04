@@ -37,7 +37,7 @@ public class UnitContoller : MonoBehaviour
     void Start()
     {
 
-        enemyNavController = Instantiate(navControllerPrefab);
+        enemyNavController = Instantiate(navControllerPrefab, player.transform);
         enemyNav = enemyNavController.GetComponent<EnemyNav>();
         enemyUnitData = SetupUnitData(enemyUnitData);
 
@@ -68,7 +68,7 @@ public class UnitContoller : MonoBehaviour
             for (int j = 0; j < data[i].maxCount; j++)
             {
                 Unit instance = Instantiate(data[i].prefab).GetComponent<Unit>();
-                enemyNav.Units.Add(instance);
+                
 
                 instance.gameObject.SetActive(false);
 
@@ -111,7 +111,7 @@ public class UnitContoller : MonoBehaviour
             for (int j = 0; j < enemyUnitData[i].activeInstances.transform.childCount; j++)
             {
                 Unit instance = enemyUnitData[i].activeInstances.transform.GetChild(j).GetComponent<Unit>();
-                instance.PathTo(target);
+                //instance.PathTo(target);
             }
         }
     }
@@ -140,5 +140,6 @@ public class UnitContoller : MonoBehaviour
         instance.transform.parent = enemyUnitData[0].activeInstances.transform;
         instance.transform.position = new Vector3(UnityEngine.Random.Range(-100,100), 0, UnityEngine.Random.Range(-100, 100));
         enemyUnitData[0].activeCount++;
+        enemyNav.Units.Add(instance);
     }
 }

@@ -19,20 +19,32 @@ public struct AttackData
     float damage;
 }
 
+public enum UnitState { Neutral, Moving}
+
 public class Unit : MonoBehaviour, IDamageable
 {
-    private NavMeshAgent nav;
+
+    UnitState unitState;
+    private int speed;
+    Rigidbody rb;
+    NavBrain nb;
+
+   
 
     // Start is called before the first frame update
     void Start()
     {
-        nav = gameObject.GetComponent<NavMeshAgent>();
+    
+        speed = 3;
+        unitState = UnitState.Neutral;
+        rb = gameObject.GetComponent<Rigidbody>();
+       
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+      
     }
 
     public void PathTo(Vector3 target)
@@ -40,7 +52,12 @@ public class Unit : MonoBehaviour, IDamageable
         // maybe more logic in the future
         if (gameObject.activeInHierarchy)
         {
-            nav.destination = target;
+            //seeky bits
+            Vector3 force = target - transform.position;
+            force.Normalize();
+            force *= speed;
+            rb.AddForce(force);
+
         }
     }
 
