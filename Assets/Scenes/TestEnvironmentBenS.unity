@@ -191,7 +191,7 @@ PrefabInstance:
     - target: {fileID: 7549426286488252480, guid: 0cb420333a94611428a9468dc1944814,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 7.09
       objectReference: {fileID: 0}
     - target: {fileID: 7549426286488252480, guid: 0cb420333a94611428a9468dc1944814,
         type: 3}
@@ -557,21 +557,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1976df9e4f946dc49b443573d3488d71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 269491305}
   enemyUnitData:
   - mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
     maxCount: 8
     prefab: {fileID: 1743346678}
     activeCount: 0
     material: {fileID: 2100000, guid: bc7b1ef537b60384c9ffa76ea6565911, type: 2}
-    instances:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
+    activeInstances: {fileID: 0}
+    inactiveInstances: {fileID: 0}
     transforms:
     - e00: 0
       e01: 0
@@ -717,10 +711,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 305ecd2dea8686a4caa4ddffa068e074, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitContoller: {fileID: 0}
+  unitContoller: {fileID: 1759194547}
   playerPrefab: {fileID: 7146553136568029599, guid: 0cb420333a94611428a9468dc1944814,
     type: 3}
-  player: {fileID: 269491305}
   camSpeed: 50
   zoomSpeed: 1
   minZoom: 5
