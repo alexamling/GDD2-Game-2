@@ -19,6 +19,7 @@ public class Player : Unit
     public float maxZoom = 45.0f;
 
     new private Camera camera;
+    private Rigidbody rigidbody;
     private Vector3 orthoRight;
     private Vector3 orthoUp;
 
@@ -36,6 +37,7 @@ public class Player : Unit
         activeProjectiles.parent = transform;
 
         unitContoller = gameObject.GetComponent<UnitContoller>();
+        rigidbody = gameObject.GetComponent<Rigidbody>();
         camera = transform.GetComponentInChildren<Camera>();
         orthoRight = new Vector3(camera.transform.right.x, 0, camera.transform.right.z);
         orthoUp = new Vector3(camera.transform.up.x, 0, camera.transform.up.z);
@@ -52,6 +54,7 @@ public class Player : Unit
     private Ray mouseRay;
     private RaycastHit rayHit;
     private bool hit;
+    private Vector3 newVelocity;
     /// <summary>
     /// All direct player input is handled here
     /// if any other class reacts to player input, it should be invoked from here
@@ -66,12 +69,12 @@ public class Player : Unit
         //if (viewPortPos.y > .9f) { transform.position += orthoUp * Mathf.Clamp01((viewPortPos.y - .9f) * 10) * Time.deltaTime * camSpeed; }
         //if (viewPortPos.y < .1f) { transform.position += orthoUp * Mathf.Clamp01((.1f - viewPortPos.y) * 10) * Time.deltaTime * -camSpeed; }
 
-
-        if (Input.GetKey(KeyCode.W)) { transform.position += orthoUp * Time.deltaTime * playerSpeed; }
-        if (Input.GetKey(KeyCode.S)) { transform.position += orthoUp * Time.deltaTime * -playerSpeed; }
-        if (Input.GetKey(KeyCode.A)) { transform.position += orthoRight * Time.deltaTime * -playerSpeed; }
-        if (Input.GetKey(KeyCode.D)) { transform.position += orthoRight * Time.deltaTime * playerSpeed; }
-
+        newVelocity = Vector3.zero;
+        if (Input.GetKey(KeyCode.W)) { newVelocity += (orthoUp * Time.deltaTime * playerSpeed); }
+        if (Input.GetKey(KeyCode.S)) { newVelocity += (orthoUp * Time.deltaTime * -playerSpeed); }
+        if (Input.GetKey(KeyCode.A)) { newVelocity += (orthoRight * Time.deltaTime * -playerSpeed); }
+        if (Input.GetKey(KeyCode.D)) { newVelocity += (orthoRight * Time.deltaTime * playerSpeed); }
+        rigidbody.velocity = newVelocity;
         // zoom
         scroll = Input.mouseScrollDelta.y;
         camera.orthographicSize = Mathf.Clamp(-scroll * zoomSpeed + camera.orthographicSize, minZoom, maxZoom);
