@@ -10,17 +10,19 @@ public struct ProjectileData
     public float range;
     public float speed;
     public float radius;
-    public ParticleSystem effect;
-    public TrailRenderer trail;
 }
 
 public class Projectile : MonoBehaviour
 {
     private Vector3 direction;
+    public ProjectileData data;
 
-    Projectile(Vector3 dir, ProjectileData data)
+    public void Init(Vector3 target)
     {
-        direction = dir;
+        direction = (target-transform.position);
+        direction.y = 0;
+        direction = Vector3.Normalize(direction);
+        Destroy(gameObject, 1);
     }
 
     // Start is called before the first frame update
@@ -32,6 +34,6 @@ public class Projectile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        transform.position += direction * data.speed;
     }
 }
