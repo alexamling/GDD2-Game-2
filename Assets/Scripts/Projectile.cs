@@ -36,4 +36,13 @@ public class Projectile : MonoBehaviour
     {
         transform.position += direction * data.speed;
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        IDamageable hitObj = other.gameObject.GetComponent<IDamageable>();
+        if (hitObj != null)
+        {
+            hitObj.OnHit(data.damage, gameObject);
+        }
+    }
 }

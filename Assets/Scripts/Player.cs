@@ -19,7 +19,7 @@ public class Player : Unit
     public float maxZoom = 45.0f;
 
     new private Camera camera;
-    private Rigidbody rigidbody;
+    new private Rigidbody rigidbody;
     private Vector3 orthoRight;
     private Vector3 orthoUp;
 
@@ -108,7 +108,6 @@ public class Player : Unit
                 {
                     //unitContoller.player.PathTo(rayHit.point);
                     FireProjectile(ProjectileType.basic, rayHit.point);
-                    Debug.Log("player path: " + rayHit.point);
                 }
             }
             // if you hit an enemy unit or landmark, attack it

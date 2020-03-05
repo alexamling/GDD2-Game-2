@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public interface IDamageable
 {
-    void OnHit(AttackData attackData);
+    void OnHit(float damage, GameObject origin);
 }
 
 public interface ISelectable
@@ -13,14 +13,9 @@ public interface ISelectable
     void Select();
 }
 
-public struct AttackData
-{
-    GameObject origin;
-    float damage;
-}
-
 public class Unit : MonoBehaviour, IDamageable
 {
+    public float health = 10;
     private NavMeshAgent nav;
 
     // Start is called before the first frame update
@@ -49,8 +44,9 @@ public class Unit : MonoBehaviour, IDamageable
 
     }
 
-    public void OnHit(AttackData attackData)
+    public void OnHit(float damage, GameObject origin)
     {
-        throw new System.NotImplementedException();
+        health -= damage;
+        Debug.Log("hit");
     }
 }
