@@ -54,13 +54,13 @@ public class GameController : MonoBehaviour
     void ProcessInput()
     {
         // camera movement
-        /*
-        viewPortPos = camera.ScreenToViewportPoint(Input.mousePosition);
-        if (viewPortPos.x > .9f) { transform.position += transform.right * Mathf.Clamp01((viewPortPos.x - .9f) * 10) * Time.deltaTime * camSpeed; }
-        if (viewPortPos.x < .1f) { transform.position += transform.right * Mathf.Clamp01((.1f - viewPortPos.x) * 10 ) * Time.deltaTime * -camSpeed; }
-        if (viewPortPos.y > .9f) { transform.position += orthoUp * Mathf.Clamp01((viewPortPos.y - .9f) * 10) * Time.deltaTime * camSpeed; }
-        if (viewPortPos.y < .1f) { transform.position += orthoUp * Mathf.Clamp01((.1f - viewPortPos.y) * 10) * Time.deltaTime * -camSpeed; }
-        */
+        
+        //viewPortPos = camera.ScreenToViewportPoint(Input.mousePosition);
+        //if (viewPortPos.x > .9f) { transform.position += transform.right * Mathf.Clamp01((viewPortPos.x - .9f) * 10) * Time.deltaTime * camSpeed; }
+        //if (viewPortPos.x < .1f) { transform.position += transform.right * Mathf.Clamp01((.1f - viewPortPos.x) * 10 ) * Time.deltaTime * -camSpeed; }
+        //if (viewPortPos.y > .9f) { transform.position += orthoUp * Mathf.Clamp01((viewPortPos.y - .9f) * 10) * Time.deltaTime * camSpeed; }
+        //if (viewPortPos.y < .1f) { transform.position += orthoUp * Mathf.Clamp01((.1f - viewPortPos.y) * 10) * Time.deltaTime * -camSpeed; }
+
 
         if (Input.GetKey(KeyCode.W)) { transform.position += orthoUp * Time.deltaTime * playerSpeed; }
         if (Input.GetKey(KeyCode.S)) { transform.position += orthoUp * Time.deltaTime * -playerSpeed; }
