@@ -51,6 +51,7 @@ public class Unit : MonoBehaviour, IDamageable
     // Update is called once per frame
     void Update()
     {
+        if (health <= 0) Destroy(gameObject);
         switch(unitState)
         {
             case UnitState.Moving:
