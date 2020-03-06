@@ -37,7 +37,7 @@ public class UnitContoller : MonoBehaviour
     void Start()
     {
 
-        enemyNavController = Instantiate(navControllerPrefab);
+        enemyNavController = Instantiate(navControllerPrefab, GameObject.Find("Player").transform);
         enemyNav = enemyNavController.GetComponent<EnemyNav>();
         enemyUnitData = SetupUnitData(enemyUnitData);
 
@@ -52,6 +52,8 @@ public class UnitContoller : MonoBehaviour
             }
 
         }
+
+        
 
     }
 
@@ -68,7 +70,7 @@ public class UnitContoller : MonoBehaviour
             for (int j = 0; j < data[i].maxCount; j++)
             {
                 Unit instance = Instantiate(data[i].prefab).GetComponent<Unit>();
-                enemyNav.Units.Add(instance);
+                
 
                 instance.gameObject.SetActive(false);
 
@@ -89,6 +91,8 @@ public class UnitContoller : MonoBehaviour
         {
             InstanceRenderer.Render(enemyUnitData[i].mesh, enemyUnitData[i].material, enemyUnitData[i].transforms, enemyUnitData[i].activeCount);
         }
+
+        enemyNav.FindPath(transform.position);
     }
 
     private void UpdateUnitData(UnitData[] data)
@@ -111,7 +115,7 @@ public class UnitContoller : MonoBehaviour
             for (int j = 0; j < enemyUnitData[i].activeInstances.transform.childCount; j++)
             {
                 Unit instance = enemyUnitData[i].activeInstances.transform.GetChild(j).GetComponent<Unit>();
-                instance.PathTo(target);
+                //instance.PathTo(target);
             }
         }
     }
@@ -138,7 +142,10 @@ public class UnitContoller : MonoBehaviour
 
         instance.gameObject.SetActive(true);
         instance.transform.parent = enemyUnitData[0].activeInstances.transform;
-        instance.transform.position = new Vector3(UnityEngine.Random.Range(-100,100), 0, UnityEngine.Random.Range(-100, 100));
+        //Bad magic numbers, look into grabbing actual coordinates
+        Vector3 pos = new Vector3(UnityEngine.Random.Range(0, 68), 0, UnityEngine.Random.Range(0, 100));
+        instance.transform.position = new Vector3(pos.x,Terrain.activeTerrain.SampleHeight(pos) , pos.z);
         enemyUnitData[0].activeCount++;
+        enemyNav.Units.Add(instance);
     }
 }

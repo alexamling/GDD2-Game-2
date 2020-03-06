@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -13,21 +13,57 @@ public interface ISelectable
     void Select();
 }
 
+
+public struct AttackData
+{
+    GameObject origin;
+    float damage;
+}
+
+public enum UnitState { Neutral, Moving, Attacking}
+
 public class Unit : MonoBehaviour, IDamageable
 {
+
+    UnitState unitState;
+    private float turnSpeed;
+   public Rigidbody rb;
+    NavBrain nb;
     public float health = 10;
-    private NavMeshAgent nav;
+    private float speedLimit;
+    private float fireRate = 2;
+    private float counter;
+   
+
 
     // Start is called before the first frame update
     void Start()
     {
-        nav = gameObject.GetComponent<NavMeshAgent>();
+    
+        turnSpeed = 5f;
+        unitState = UnitState.Neutral;
+        rb = gameObject.GetComponent<Rigidbody>();
+        speedLimit = 10;
+
+       
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        switch(unitState)
+        {
+            case UnitState.Moving:
+                break;
+            case UnitState.Attacking:
+                if(counter > fireRate)
+                {
+                    Debug.Log("Attack");
+                }
+                break;
+        }
+        counter += Time.deltaTime;
+        //Debug.Log(unitState);
     }
 
     public void PathTo(Vector3 target)
@@ -35,7 +71,21 @@ public class Unit : MonoBehaviour, IDamageable
         // maybe more logic in the future
         if (gameObject.activeInHierarchy)
         {
-            nav.destination = target;
+            //seeky bits
+            Vector3 force = target - transform.position;
+            force.Normalize();
+            force *= turnSpeed;
+            rb.AddForce(force);
+
+            //slow down there buster brown(clamps unit velocity)
+            if(rb.velocity.magnitude > speedLimit)
+            {
+                Vector3 newVelocity = rb.velocity;
+                newVelocity.Normalize();
+                rb.velocity = newVelocity * speedLimit;
+
+            }
+
         }
     }
 
@@ -47,6 +97,12 @@ public class Unit : MonoBehaviour, IDamageable
     public void OnHit(float damage, GameObject origin)
     {
         health -= damage;
-        Debug.Log("hit");
+        //Debug.Log("hit");
+    }
+
+    public UnitState UnitState
+    {
+        get { return unitState; }
+        set { unitState = value; }
     }
 }

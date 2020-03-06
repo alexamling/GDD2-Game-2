@@ -118,7 +118,7 @@ public class Player : Unit
 
         // space pressed
         // pause/unpause
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.X))
         {
             unitContoller.SpawnUnits();
         }
