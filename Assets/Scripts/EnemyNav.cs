@@ -28,7 +28,8 @@ public class EnemyNav : MonoBehaviour
 
     public void FindPath(Vector3 target)
     {
-        navBrain.FindPath(target);
+
+        navBrain.FindPath(target, units);
     }
 
 
