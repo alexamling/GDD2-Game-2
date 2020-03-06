@@ -1,17 +1,18 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
 public interface IDamageable
 {
-    void OnHit(AttackData attackData);
+    void OnHit(float damage, GameObject origin);
 }
 
 public interface ISelectable
 {
     void Select();
 }
+
 
 public struct AttackData
 {
@@ -28,8 +29,9 @@ public class Unit : MonoBehaviour, IDamageable
     private int speed;
     Rigidbody rb;
     NavBrain nb;
-
+    public float health = 10;
    
+
 
     // Start is called before the first frame update
     void Start()
@@ -66,8 +68,9 @@ public class Unit : MonoBehaviour, IDamageable
 
     }
 
-    public void OnHit(AttackData attackData)
+    public void OnHit(float damage, GameObject origin)
     {
-        throw new System.NotImplementedException();
+        health -= damage;
+        Debug.Log("hit");
     }
 }
