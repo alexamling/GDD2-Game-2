@@ -19,6 +19,7 @@ public class EnemyNav : MonoBehaviour
         units = new List<Unit>();
         navBrainGameObject = Instantiate(navBrainPrefab, transform);
         navBrain = navBrainGameObject.GetComponent<NavBrain>();
+        units = new List<Unit>();
     }
 
     public List<Unit> Units
@@ -28,7 +29,7 @@ public class EnemyNav : MonoBehaviour
 
     public void FindPath(Vector3 target)
     {
-
+       
         navBrain.FindPath(target, units);
     }
 
