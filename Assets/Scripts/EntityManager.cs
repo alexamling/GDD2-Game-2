@@ -197,16 +197,19 @@ public class EntityManager : MonoBehaviour
     /// <param name="player">Sphere of tremendousness or something. It's what they chase</param>
     private void CreatePlayer(GameObject player)
     {
+        // Specifies the position where the player character will be instantiated
         Vector3 playerPosition = new Vector3(-24f, 1f, -37f);
 
-        // Instantiate a new monster
+        // Instantiate a new player
         this.newObject = Instantiate(player, playerPosition, Quaternion.Euler(0, 0, 0));
         // Assign the object to the appropriate location in the Hierarchy
+        // This refers to the Hierarchy as specified inside the scene in Unity. i.e. the player will be
+        // created in Level1 -> Managers -> EntityManager -> Player
         this.newObject.transform.parent = GameObject.Find("Player").transform;
-        // Get the prefab name of the object
+        // Get the prefab name of the player
         this.newObject.name = "Player";
 
-        //Set object specific properties
+        //Set player specific properties
         this.newObject.GetComponent<ObjectProperties>().seeker = false;
         this.newObject.GetComponent<ObjectProperties>().fleer = false;
         this.newObject.GetComponent<ObjectProperties>().mass = 0f;
@@ -215,12 +218,11 @@ public class EntityManager : MonoBehaviour
         this.newObject.GetComponent<ObjectProperties>().position = this.newObject.transform.position;
 
         // Add the new object to the appropriate lists
-        //psgs.Add(this.newObject.name, this.newObject);
         allObjects.Add(this.newObject.name, this.newObject);
     }
     #endregion
 
-    #region HUMAN INSTANTIATION
+    #region FLOCKER INSTANTIATION
     /// <summary>
     /// Instantiates a flocker prefab on the terrain
     /// </summary>
@@ -230,6 +232,8 @@ public class EntityManager : MonoBehaviour
         // Instantiate a new monster
         this.newObject = Instantiate(flocker, InstantiationPosition(flocker), Quaternion.Euler(0, 0, 0));
         // Assign the object to the appropriate location in the Hierarchy
+        // This refers to the Hierarchy as specified inside the scene in Unity. i.e. the player will be
+        // created in Level1 -> Managers -> EntityManager -> EnemyMinions
         this.newObject.transform.parent = GameObject.Find("EnemyMinions").transform;
         // Get the prefab name of the object
         this.newObject.name = this.newObject.name.Substring(0, this.newObject.name.IndexOf("(")) + flockers.Count;
