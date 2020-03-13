@@ -3,7 +3,9 @@
 The New-Master branch is a redesign of the original branch.  Inside the New-Master branch, inside the Assets folder is a folder called OLD.  The OLD folder contains all the items that were inside the original master.
 
 ## Purpose Of Redesign
-It was noted during the first sprint that the team ran into some trouble with regards to implementing new features.  This new branch is an attempt to consolidate the work into a new working set which is structured and consists purely out of components.  
+It was noted during the first sprint that the team ran into some trouble with regards to implementing new features.  This new branch is an attempt to consolidate the work into a new working set which is structured and consists purely out of components. 
+
+When properly implementing the modular design, we can finish the Level1 scene, create a Prefab from it, and simply duplicate it for every other level we want to create.  It should contain all the core requirements of the entire game, then we only have to change those aspects we want to have different for every consecutive level.
 
 ## Structures
 ### Assets Folder Structure
