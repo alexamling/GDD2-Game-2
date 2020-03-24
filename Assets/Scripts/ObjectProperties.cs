@@ -53,13 +53,8 @@ public class ObjectProperties : MonoBehaviour
     #endregion
 
     #region FORCES, POSITIONS, DIRECTIONS
-    public Vector3 ultimateForce;
-    public Vector3 totalForce;
-    public Vector3 flockCenter;
-    public Vector3 flockDirection;
-    public Vector3 position;
-    public Vector3 velocity;
-    public Vector3 direction;
+
+    Rigidbody rb;
     #endregion
 
     #region OBJECT TYPE SPECIFIC PROPERTIES
@@ -90,7 +85,7 @@ public class ObjectProperties : MonoBehaviour
     // Use this for initialization
     private void Awake()
     {
-        GetBounds();
+       
 
         this.motion = MovementState.Wandering;
 
@@ -114,9 +109,8 @@ public class ObjectProperties : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        this.direction = this.velocity.normalized;
+      
 
-        GetBounds();
     }
     #endregion
 
@@ -126,16 +120,6 @@ public class ObjectProperties : MonoBehaviour
     /// </summary>
     /// <param name="obj">Game object that bounds are required for</param>
     /// <returns>Bounds of the object</returns>
-    private void GetBounds()
-    {
-        if (this.gameObject.GetComponent<SpriteRenderer>() != null)
-        {
-            this.bounds = this.gameObject.GetComponent<SpriteRenderer>().bounds;
-        }
-        else if (this.gameObject.GetComponent<MeshRenderer>() != null)
-        {
-            this.bounds = this.gameObject.GetComponent<MeshRenderer>().bounds;
-        }
-    }
+   
     #endregion
 }

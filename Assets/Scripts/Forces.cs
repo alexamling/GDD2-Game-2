@@ -63,7 +63,7 @@ public class Forces : MonoBehaviour
 
         this.objectProperties = this.gameObject.GetComponent<ObjectProperties>();
 
-        this.objectProperties.totalForce = Vector3.zero;
+        
         forcesSeek = this.gameObject.GetComponent<Forces_Seek>();
         forcesFlee = this.gameObject.GetComponent<Forces_Flee>();
     }
