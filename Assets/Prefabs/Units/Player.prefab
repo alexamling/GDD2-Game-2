@@ -31,7 +31,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1961659040209784471}
-  m_LocalRotation: {x: 0.21900576, y: 0.50730145, z: -0.46431753, w: -0.692164}
+  m_LocalRotation: {x: -0.90086603, y: -0.095984384, z: 0.03092871, w: 0.42222127}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -227,7 +227,7 @@ MonoBehaviour:
   flockDirection: {x: 0, y: 0, z: 0}
   position: {x: 0, y: 0, z: 0}
   velocity: {x: 0, y: 0, z: 0}
-  direction: {x: -0.52318156, y: -0.20461525, z: -0.827293}
+  direction: {x: -0.42295128, y: -0.46623695, z: -0.777004}
   mass: 0
   maxSpeed: 0
   radius: 0

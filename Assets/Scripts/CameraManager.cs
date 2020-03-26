@@ -4,15 +4,15 @@ using UnityEngine;
 
 /// <summary>
 /// 
-/// IGME-202.05 - Interactive Media Development
+/// IGME-320.01 - Game Design and Development 2
 /// 
-/// Project 5 - Flocking and Path Following
+/// Project 2
 /// 
 /// Class Description   : Manages the switching between cameras in game
 /// Created By          : Benjamin Kleynhans
 /// Date Created        : December 8, 2018
 /// Last Modified By    : Benjamin Kleynhans
-/// Date Modified       : December 11, 2018
+/// Date Modified       : March 26, 2020
 /// Filename            : CameraManager.cs
 /// 
 /// </summary>

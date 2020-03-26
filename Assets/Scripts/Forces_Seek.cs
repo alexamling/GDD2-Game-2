@@ -4,15 +4,15 @@ using UnityEngine;
 
 /// <summary>
 /// 
-/// IGME-202.05 - Interactive Media Development
+/// IGME-320.01 - Game Design and Development 2
 /// 
-/// Project 5 - Flocking and Path Following
+/// Project 2
 /// 
 /// Class Description   : Seek a target object or location
 /// Created By          : Benjamin Kleynhans
 /// Date Created        : December 9, 2018
 /// Last Modified By    : Benjamin Kleynhans
-/// Date Modified       : December 11, 2018
+/// Date Modified       : March 26, 2020
 /// Filename            : Forces_Seek.cs
 /// 
 /// </summary>

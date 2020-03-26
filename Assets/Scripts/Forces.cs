@@ -4,9 +4,9 @@ using UnityEngine;
 
 /// <summary>
 /// 
-/// IGME-202.05 - Interactive Media Development
+/// IGME-320.01 - Game Design and Development 2
 /// 
-/// Project 5 - Flocking and Path Following
+/// Project 2
 /// 
 /// Class Description   : This is a management class to consolidate all forces that are to be
 ///                         applied to a game object.  Once all weighted forces have been combined
@@ -15,7 +15,7 @@ using UnityEngine;
 /// Created By          : Benjamin Kleynhans
 /// Date Created        : December 9, 2018
 /// Last Modified By    : Benjamin Kleynhans
-/// Date Modified       : December 11, 2018
+/// Date Modified       : March 26, 2020
 /// Filename            : Forces.cs
 /// 
 /// </summary>
