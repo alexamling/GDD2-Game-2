@@ -73,7 +73,7 @@ public class Entity : MonoBehaviour
     #region UPDATE
     // Update is called once per frame
     protected void Update()
-    {
+    {        
         this.velocity = this.objectProperties.velocity;
         this.position = this.objectProperties.position;
         this.direction = this.objectProperties.direction;

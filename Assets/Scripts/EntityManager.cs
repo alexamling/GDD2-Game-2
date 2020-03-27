@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -23,7 +24,7 @@ public class EntityManager : MonoBehaviour
     #region PREFABS
     // Objects / Prefabs
     public GameObject playerPrefab;
-    public GameObject flockerPrefab;
+    public GameObject stemCellPrefab;
     //public GameObject pathFollowerPrefab;
     //public GameObject waypointPrefab;
     //public GameObject enemyPrefab;
@@ -37,14 +38,16 @@ public class EntityManager : MonoBehaviour
     protected GameObject managers;
     protected TerrainManager terrainManager;
     private CollisionDetection collisionDetection;
+    protected EntityBlueprints entityBlueprints;
     #endregion
 
     #region LISTS AND DICTIONARIES
     // Individual object lists
     // Dictionaries per object type instantiated in game
+    public Dictionary<string, GameObject> stemCells = new Dictionary<string, GameObject>();
     //public Dictionary<string, GameObject> psgs = new Dictionary<string, GameObject>();
     public Dictionary<string, GameObject> flockers = new Dictionary<string, GameObject>();
-    public Dictionary<string, GameObject> pathFollowers = new Dictionary<string, GameObject>();
+    public Dictionary<string, GameObject> followers = new Dictionary<string, GameObject>();
     public Dictionary<string, GameObject> waypoints = new Dictionary<string, GameObject>();
     public Dictionary<string, GameObject> floatingObstacles = new Dictionary<string, GameObject>();
 
@@ -68,6 +71,7 @@ public class EntityManager : MonoBehaviour
 
     #region QUANTITIES OF OBJECTS TO INSTANTIATE
     // Predefined quantities of objects to instantiate
+    int nrOfStemCells;
     int nrOfFlockers;
     int nrOfPathFollowers;
     int nrOfWaypoints;
@@ -87,6 +91,15 @@ public class EntityManager : MonoBehaviour
 
     // Debug lines properties
     public bool enableDebugLines;
+
+    // Test values for pool creation    
+    string playerFollower;
+    string generalFlocker;
+    string generalFollower;
+    string bossFlocker;
+    string bossFollower;
+    string flocker;
+    string follower;
     #endregion
     #endregion
 
@@ -101,6 +114,7 @@ public class EntityManager : MonoBehaviour
 
         terrainManager = managers.GetComponentInChildren<TerrainManager>();
         this.collisionDetection = gameObject.GetComponent<CollisionDetection>();
+        this.entityBlueprints = gameObject.GetComponent<EntityBlueprints>();
 
         // Set initial debug line value
         this.enableDebugLines = true;
@@ -118,7 +132,8 @@ public class EntityManager : MonoBehaviour
         this.waypointPositions.Add(new Vector3(22f, -48f, 40f));
 
         // Set the quantities and values of objects to instantiate
-        this.nrOfFlockers = 50; // Editible in Inspector
+        this.nrOfStemCells = 50; // Editible in Inspector
+        this.nrOfFlockers = 50;
         //this.nrOfPathFollowers = 1; // No path followers used
         //this.nrOfWaypoints = this.waypointPositions.Count; // No Waypoints used
 
@@ -130,6 +145,15 @@ public class EntityManager : MonoBehaviour
         this.pathFollowerInstantiationPosition = new Vector3(30f, -48f, 40f);
         this.pathFollowerMass = 3f;
         this.pathFollowerMaxSpeed = 5f;
+
+        // Initialize test value for pool creation
+        this.playerFollower = "";
+        this.generalFlocker = "";
+        this.generalFollower = "";
+        this.bossFlocker = "";
+        this.bossFollower = "";
+        this.flocker = "";
+        this.follower = "";
     }
     #endregion
 
@@ -154,6 +178,34 @@ public class EntityManager : MonoBehaviour
         {
             this.enableDebugLines = !this.enableDebugLines;
         }
+
+        // Create test objects from the pool
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            this.playerFollower = this.entityBlueprints.getMinion("player", "follower");
+            this.generalFlocker = this.entityBlueprints.getMinion("general", "flocker");
+            this.generalFollower = this.entityBlueprints.getMinion("general", "follower");
+            this.bossFlocker = this.entityBlueprints.getMinion("boss", "flocker");
+            this.bossFollower = this.entityBlueprints.getMinion("boss", "follower");
+            this.flocker = this.entityBlueprints.getMinion("minion", "flocker");
+            this.follower = this.entityBlueprints.getMinion("minion", "follower");
+
+            Console.WriteLine();
+        }
+
+        // Return test objects to the pool
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            this.entityBlueprints.makeStemCell(this.allObjects[this.playerFollower]);
+            this.entityBlueprints.makeStemCell(this.allObjects[this.generalFollower]);
+            this.entityBlueprints.makeStemCell(this.allObjects[this.generalFlocker]);
+            this.entityBlueprints.makeStemCell(this.allObjects[this.bossFlocker]);
+            this.entityBlueprints.makeStemCell(this.allObjects[this.bossFollower]);
+            this.entityBlueprints.makeStemCell(this.allObjects[this.flocker]);
+            this.entityBlueprints.makeStemCell(this.allObjects[this.follower]);
+
+            Console.WriteLine();
+        }
     }
     #endregion
 
@@ -165,19 +217,20 @@ public class EntityManager : MonoBehaviour
     {
         Vector3 instantiationPosition = Vector3.zero;
 
-        CreatePlayer(playerPrefab);
+        // Create player unit
+        CreatePlayer(playerPrefab);               
+
+        // Create stemcell units
+        for (int i = 0; i < nrOfStemCells; i++)
+        {
+            CreateStemCell(stemCellPrefab);
+        }
 
         //CreateFloatingObstacle(floatingObstacle0Prefab);
         //CreateFloatingObstacle(floatingObstacle1Prefab);
         //CreateFloatingObstacle(floatingObstacle2Prefab);
 
-        // Create flockers
-        for (int i = 0; i < nrOfFlockers; i++)
-        {
-            CreateFlocker(flockerPrefab);
-        }
-
-        //// Create pathFollowers
+        //// Create followers
         //for (int i = 0; i < nrOfPathFollowers; i++)
         //{
         //    CreatePathFollower(pathFollowerPrefab);
@@ -224,30 +277,31 @@ public class EntityManager : MonoBehaviour
 
     #region FLOCKER INSTANTIATION
     /// <summary>
-    /// Instantiates a flocker prefab on the terrain
+    /// Instantiates the number of elements in the pool
     /// </summary>
-    /// <param name="flocker">Human gameobject</param>
-    private void CreateFlocker(GameObject flocker)
+    /// <param name="stemCell">All gameobjects</param>
+    private void CreateStemCell(GameObject stemCell)
     {
-        // Instantiate a new monster
-        this.newObject = Instantiate(flocker, InstantiationPosition(flocker), Quaternion.Euler(0, 0, 0));
+        // Instantiate a new stem cell
+        //this.newObject = Instantiate(stemCell, InstantiationPosition(stemCell), Quaternion.Euler(0, 0, 0));
+        this.newObject = Instantiate(stemCell, new Vector3(-1000f, -1000f, -1000f), Quaternion.Euler(0, 0, 0));
         // Assign the object to the appropriate location in the Hierarchy
         // This refers to the Hierarchy as specified inside the scene in Unity. i.e. the player will be
         // created in Level1 -> Managers -> EntityManager -> EnemyMinions
-        this.newObject.transform.parent = GameObject.Find("EnemyMinions").transform;
+        this.newObject.transform.parent = GameObject.Find("StemCells").transform;
         // Get the prefab name of the object
-        this.newObject.name = this.newObject.name.Substring(0, this.newObject.name.IndexOf("(")) + flockers.Count;
+        this.newObject.name = this.newObject.name.Substring(0, this.newObject.name.IndexOf("(")) + stemCells.Count;
 
         //Set object specific properties
-        this.newObject.GetComponent<ObjectProperties>().seeker = true;
-        this.newObject.GetComponent<ObjectProperties>().fleer = true;
-        this.newObject.GetComponent<ObjectProperties>().mass = this.flockerMass;
-        this.newObject.GetComponent<ObjectProperties>().maxSpeed = this.flockerMaxSpeed;
-        this.newObject.GetComponent<ObjectProperties>().motion = MovementState.Seeking;
+        //this.newObject.GetComponent<ObjectProperties>().seeker = true;
+        //this.newObject.GetComponent<ObjectProperties>().fleer = true;
+        //this.newObject.GetComponent<ObjectProperties>().mass = this.flockerMass;
+        //this.newObject.GetComponent<ObjectProperties>().maxSpeed = this.flockerMaxSpeed;
+        //this.newObject.GetComponent<ObjectProperties>().motion = MovementState.Seeking;
         this.newObject.GetComponent<ObjectProperties>().position = this.newObject.transform.position;
 
         // Add the new object to the appropriate lists
-        flockers.Add(this.newObject.name, this.newObject);
+        stemCells.Add(this.newObject.name, this.newObject);
         allObjects.Add(this.newObject.name, this.newObject);
     }
     #endregion
@@ -264,7 +318,7 @@ public class EntityManager : MonoBehaviour
         // Assign the object to the appropriate location in the Hierarchy
         this.newObject.transform.parent = GameObject.Find("PathFollowers").transform;
         // Get the prefab name of the object
-        this.newObject.name = this.newObject.name.Substring(0, this.newObject.name.IndexOf("(")) + pathFollowers.Count;
+        this.newObject.name = this.newObject.name.Substring(0, this.newObject.name.IndexOf("(")) + followers.Count;
 
         // Set object specific properties                
         this.newObject.GetComponent<ObjectProperties>().seeker = true;
@@ -275,7 +329,7 @@ public class EntityManager : MonoBehaviour
         this.newObject.GetComponent<ObjectProperties>().position = this.newObject.transform.position;
 
         // Add the new object to the appropriate lists
-        pathFollowers.Add(this.newObject.name, this.newObject);
+        followers.Add(this.newObject.name, this.newObject);
         allObjects.Add(this.newObject.name, this.newObject);
     }
     #endregion
@@ -368,15 +422,15 @@ public class EntityManager : MonoBehaviour
 
             // Generate random location
             this.instantiationPosition = new Vector3(
-                Random.Range(
+                UnityEngine.Random.Range(
                     (terrainManager.terrainCubeMin.x + createObject.GetComponent<ObjectProperties>().bounds.extents.x),
                     (terrainManager.terrainCubeMax.x - createObject.GetComponent<ObjectProperties>().bounds.extents.x)
                 ),
-                Random.Range(
+                UnityEngine.Random.Range(
                     (terrainManager.terrainCubeMin.y + createObject.GetComponent<ObjectProperties>().bounds.extents.y + 30f),
                     (terrainManager.terrainCubeMax.y - createObject.GetComponent<ObjectProperties>().bounds.extents.y - 5f)
                 ),
-                Random.Range(
+                UnityEngine.Random.Range(
                     (terrainManager.terrainCubeMin.z + createObject.GetComponent<ObjectProperties>().bounds.extents.z),
                     (terrainManager.terrainCubeMax.z - createObject.GetComponent<ObjectProperties>().bounds.extents.z)
                 ));

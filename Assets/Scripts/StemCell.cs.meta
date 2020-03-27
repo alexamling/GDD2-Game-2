@@ -1,12 +1,10 @@
 fileFormatVersion: 2
-guid: fdbfc2e5351f4fa468b802ff4f996940
+guid: ca1bc31c1f2ff3542b56d4ef126078df
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences:
-  - playerPrefab: {instanceID: 0}
-  - stemCellPrefab: {instanceID: 0}
-  executionOrder: 100
+  defaultReferences: []
+  executionOrder: 0
   icon: {instanceID: 0}
   userData: 
   assetBundleName: 
