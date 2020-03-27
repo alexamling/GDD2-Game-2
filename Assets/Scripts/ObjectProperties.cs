@@ -18,18 +18,6 @@ using UnityEngine;
 /// 
 /// </summary>
 
-public enum MovementState
-{
-    BoundaryContact,
-    Evading,
-    Fleeing,
-    Leading,
-    Pursueing,
-    Seeking,
-    Wandering,
-    None
-}
-
 public class ObjectProperties : MonoBehaviour
 {
     #region VARIABLES

@@ -167,8 +167,11 @@ public class FlockManager : MonoBehaviour
     {
         foreach (KeyValuePair<string, GameObject> flocker in entityManager.flockers)
         {
-            flocker.Value.GetComponent<ObjectProperties>().flockCenter = this.flockingCenterValues["Flocker"];
-            flocker.Value.GetComponent<ObjectProperties>().flockDirection = this.alignmentDirection["Flocker"];
+            if (this.flockingCenterValues.ContainsKey("Flocker"))
+            {
+                flocker.Value.GetComponent<ObjectProperties>().flockCenter = this.flockingCenterValues["Flocker"];
+                flocker.Value.GetComponent<ObjectProperties>().flockDirection = this.alignmentDirection["Flocker"];
+            }
         }
     }
     #endregion

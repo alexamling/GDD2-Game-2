@@ -128,7 +128,7 @@ public class CameraManager : MonoBehaviour
         {
             this.playerObject.GetComponent<ObjectProperties>().direction = flockManager.alignmentDirection["Flocker"];
 
-            if (this.currentActiveCamera == this.camera2)
+            if ((this.currentActiveCamera == this.camera2) && (flockManager.flockingCenterValues.ContainsKey("Flocker")))
             {
                 this.playerObject.GetComponent<ObjectProperties>().position = flockManager.flockingCenterValues["Flocker"];
             }
