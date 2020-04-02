@@ -104,14 +104,8 @@ public class Player : Unit
             // read raycast
             if (hit)
             {
-                if (rayHit.collider.gameObject.GetComponent<NavMeshSurface>())
-                {
-                    //unitContoller.player.PathTo(rayHit.point);
-                    FireProjectile(ProjectileType.basic, rayHit.point);
-                }
+                FireProjectile(ProjectileType.basic, rayHit.point);
             }
-            // if you hit an enemy unit or landmark, attack it
-            // if you hit terrain, move towards it
         }
 
         unitContoller.UnitTest(unitContoller.player.transform.position);

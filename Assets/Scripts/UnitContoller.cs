@@ -125,14 +125,9 @@ public class UnitContoller : MonoBehaviour
         enemyNav.FindPath(hit);
     }
 
-    void DeselectUnits()
+    public void DespawnUnit(Unit unit)
     {
 
-    }
-
-    void ToggleUnitSelection(ISelectable unit)
-    {
-    
     }
 
     public void SpawnUnits(/*TODO: input values*/)

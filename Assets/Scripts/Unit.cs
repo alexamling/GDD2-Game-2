@@ -27,7 +27,7 @@ public class Unit : MonoBehaviour, IDamageable
 
     UnitState unitState;
     private float turnSpeed;
-   public Rigidbody rb;
+    public Rigidbody rb;
     NavBrain nb;
     public float health = 10;
     private float speedLimit;
@@ -51,7 +51,7 @@ public class Unit : MonoBehaviour, IDamageable
     // Update is called once per frame
     void Update()
     {
-        if (health <= 0) Destroy(gameObject);
+        //if (health <= 0) Destroy(gameObject);
         switch(unitState)
         {
             case UnitState.Moving:
