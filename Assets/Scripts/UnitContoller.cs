@@ -143,4 +143,9 @@ public class UnitContoller : MonoBehaviour
         enemyUnitData[0].activeCount++;
         enemyNav.Units.Add(instance);
     }
+
+    public EnemyNav EnemyNav
+    {
+        get { return enemyNav; }
+    }
 }

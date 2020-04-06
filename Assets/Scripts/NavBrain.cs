@@ -45,7 +45,7 @@ public class NavBrain : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("bruh");
+        
         other.gameObject.GetComponent<Unit>().UnitState = UnitState.Attacking;
     }
 

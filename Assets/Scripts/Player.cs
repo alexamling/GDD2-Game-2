@@ -117,6 +117,10 @@ public class Player : Unit
             unitContoller.SpawnUnits();
         }
 
+        if(Input.GetKeyDown(KeyCode.L))
+        {
+            unitContoller.EnemyNav.CreateNavBrain(unitContoller.EnemyNav.NavBrainGameObject.transform);
+        }
         // TODO: all other hotkeys
 
         // Using B as a tester key, definitely subject to change
