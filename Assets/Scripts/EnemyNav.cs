@@ -11,18 +11,20 @@ public class EnemyNav : MonoBehaviour
     public List<Unit> units;
     public GameObject navBrainPrefab;
     private GameObject navBrainGameObject;
-    private NavBrain navBrain;
+    private NavBrain rootNavBrain;
+    private Transform root;
 
     //number of elements in the tree per level
     private int treeSize = 3;
-
+    private int treeLevel = 1;
     void Start()
     {
         nav = GetComponent<NavMeshAgent>();
         units = new List<Unit>();
         navBrainGameObject = Instantiate(navBrainPrefab, transform);
-        navBrain = navBrainGameObject.GetComponent<NavBrain>();
+        rootNavBrain = navBrainGameObject.GetComponent<NavBrain>();
         units = new List<Unit>();
+        root = navBrainGameObject.transform;
 
        //for(int i =0; i < 20; i++)
        //{
@@ -43,7 +45,7 @@ public class EnemyNav : MonoBehaviour
     public void FindPath(Vector3 target)
     {
        
-        navBrain.FindPath(target, units);
+        rootNavBrain.FindPath(target, units);
     }
 
 
@@ -114,4 +116,68 @@ public class EnemyNav : MonoBehaviour
 
         return minTransform;
     }
+
+    //find the number of child units in its control and its decendants control
+    public int FindNumChildUnits(Transform t)
+    {
+        int sum = 0;
+        NavBrain nb = t.gameObject.GetComponent<NavBrain>();
+        sum += nb.ChildUnits.Count;
+        for (int i = 0; i < t.childCount; i++)
+        {
+            sum += FindNumChildUnits(t.GetChild(i));
+        }
+        return sum;
+    }
+
+    public Transform FindMinNumChildUnits(Transform t)
+    {
+        //this is true if all available navBrains are full
+        if((FindNumDecendants(navBrainGameObject.transform) - 1) * 4 == FindNumChildUnits(navBrainGameObject.transform))
+        {
+            return null;
+        }
+
+        int minNum = int.MaxValue;
+        Transform minTransform = t;
+        //checking the level below t in the tree
+        for(int i = 0; i < t.childCount; i++)
+        {
+            if (minNum > FindNumChildUnits(t.GetChild(i)))
+            {
+                minTransform = t.GetChild(i);
+                minNum = FindNumChildUnits(t.GetChild(i))
+;           }
+        }
+
+        
+        if(minNum < 4)
+        {
+            return minTransform;
+        }
+
+        //if all children at this level are full
+        else
+        {
+            return FindMinNumChildUnits(minTransform);
+        }
+
+    }
+
+    public void AddEnemy(Unit u)
+    {
+        if(FindMinNumChildUnits(root) == null)
+        {
+            float numNavBrains = Mathf.Pow((float)treeSize, treeLevel);
+            for(int i = 0; i < numNavBrains; i++ )
+            {
+                CreateNavBrain(root);
+            }
+            treeLevel++;
+
+        }
+        
+        FindMinNumChildUnits(root).gameObject.GetComponent<NavBrain>().ChildUnits.Add(u);
+    }
+
 }

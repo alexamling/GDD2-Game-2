@@ -141,7 +141,7 @@ public class UnitContoller : MonoBehaviour
         Vector3 pos = new Vector3(UnityEngine.Random.Range(0, 68), 0, UnityEngine.Random.Range(0, 100));
         instance.transform.position = new Vector3(pos.x,Terrain.activeTerrain.SampleHeight(pos) , pos.z);
         enemyUnitData[0].activeCount++;
-        enemyNav.Units.Add(instance);
+        enemyNav.AddEnemy(instance);
     }
 
     public EnemyNav EnemyNav
