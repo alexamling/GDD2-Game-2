@@ -5,28 +5,29 @@ using UnityEngine.AI;
 
 public class NavBrain : MonoBehaviour
 {
-   public NavMeshAgent nav;
+    public NavMeshAgent nav;
     UnitState unitState;
-    List<Unit> childUnits;
+    public List<Unit> childUnits;
 
     void Start()
     {
         nav = GetComponent<NavMeshAgent>();
         unitState = UnitState.Moving;
+        childUnits = new List<Unit>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(unitState == UnitState.Moving && childUnits != null)
+        if (unitState == UnitState.Moving && childUnits != null)
         {
 
-           
+
             foreach (Unit u in childUnits)
             {
-                
+
                 u.PathTo(transform.position);
-              
+
             }
         }
     }
@@ -36,7 +37,7 @@ public class NavBrain : MonoBehaviour
 
         nav.SetDestination(target);
         childUnits = units;
-        
+
     }
     private void OnDrawGizmosSelected()
     {
@@ -45,7 +46,7 @@ public class NavBrain : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("bruh");
+
         other.gameObject.GetComponent<Unit>().UnitState = UnitState.Attacking;
     }
 
@@ -53,4 +54,17 @@ public class NavBrain : MonoBehaviour
     {
         other.gameObject.GetComponent<Unit>().UnitState = UnitState.Moving;
     }
+
+    public List<Unit> ChildUnits
+    {
+        get
+        {
+            return childUnits;
+        }
+
+    }
+
+   
+    
+
 }
