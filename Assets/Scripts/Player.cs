@@ -119,7 +119,7 @@ public class Player : Unit
 
         if(Input.GetKeyDown(KeyCode.L))
         {
-            unitContoller.EnemyNav.CreateNavBrain(unitContoller.EnemyNav.NavBrainGameObject.transform);
+            
         }
         // TODO: all other hotkeys
 
