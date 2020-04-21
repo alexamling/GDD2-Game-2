@@ -176,8 +176,9 @@ public class EnemyNav : MonoBehaviour
             treeLevel++;
 
         }
-        
-        FindMinNumChildUnits(root).gameObject.GetComponent<NavBrain>().ChildUnits.Add(u);
+        NavBrain reciever = FindMinNumChildUnits(root).gameObject.GetComponent<NavBrain>();
+        u.Nav = reciever;
+        reciever.ChildUnits.Add(u);
     }
 
 }

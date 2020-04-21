@@ -37,7 +37,7 @@ public class UnitContoller : MonoBehaviour
     void Start()
     {
 
-        enemyNavController = Instantiate(navControllerPrefab, GameObject.Find("Player").transform);
+        enemyNavController = Instantiate(navControllerPrefab);
         enemyNav = enemyNavController.GetComponent<EnemyNav>();
         enemyUnitData = SetupUnitData(enemyUnitData);
 

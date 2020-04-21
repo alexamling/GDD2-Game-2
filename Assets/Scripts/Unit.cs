@@ -20,7 +20,7 @@ public struct AttackData
     float damage;
 }
 
-public enum UnitState { Neutral, Moving, Attacking}
+public enum UnitState { Neutral, Moving, Attacking, Braking}
 
 public class Unit : MonoBehaviour, IDamageable
 {
@@ -33,6 +33,7 @@ public class Unit : MonoBehaviour, IDamageable
     private float speedLimit;
     private float fireRate = 2;
     private float counter;
+    public NavBrain nav;
    
 
 
@@ -40,13 +41,21 @@ public class Unit : MonoBehaviour, IDamageable
     void Start()
     {
     
-        turnSpeed = 5f;
+        turnSpeed = 50f;
         unitState = UnitState.Neutral;
         rb = gameObject.GetComponent<Rigidbody>();
         speedLimit = 10;
 
        
     }
+
+    public NavBrain Nav
+    {
+        get { return nav; }
+        set { nav = value; }
+    }
+
+    
 
     // Update is called once per frame
     void Update()
@@ -59,8 +68,15 @@ public class Unit : MonoBehaviour, IDamageable
             case UnitState.Attacking:
                 if(counter > fireRate)
                 {
-                    Debug.Log("Attack");
+                   
                 }
+                break;
+            case UnitState.Braking:
+                if(rb.velocity.magnitude < .1f)
+                {
+                    unitState = UnitState.Attacking;
+                }
+                Brake();
                 break;
         }
         counter += Time.deltaTime;
@@ -105,5 +121,16 @@ public class Unit : MonoBehaviour, IDamageable
     {
         get { return unitState; }
         set { unitState = value; }
+    }
+
+
+    public void Brake()
+    {
+        rb.velocity *= .93f;
+    }
+
+    public void MoveUnits(int level)
+    {
+
     }
 }
