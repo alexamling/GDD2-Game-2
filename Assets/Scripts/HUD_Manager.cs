@@ -80,16 +80,19 @@ public class HUD_Manager : MonoBehaviour
     {
         //No, Unity does not allow you to use an enum as an on click parameter in the inspector. Yes, people have been asking for this basic functionality for 6 years
         //currentUIState = (UIState)System.Enum.Parse(typeof(UIState), nextState);
+        currentUIState = nextState;
 
         foreach (GameObject menu in menus)
         {
-            if (menu.name != currentUIState.ToString())
+            if (menu.name != currentUIState.ToString() + "Panel")
             {
                 menu.SetActive(false);
+                Debug.Log("not state " + currentUIState.ToString() + ", its " + menu.name);
             }
             else
             {
                 menu.SetActive(true);
+                Debug.Log("THIS ONE");
             }
         } 
     }
