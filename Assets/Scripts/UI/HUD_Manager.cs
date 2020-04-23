@@ -31,6 +31,8 @@ public class HUD_Manager : MonoBehaviour
     [SerializeField] TextMeshProUGUI healthText;
     [SerializeField] TextMeshProUGUI manaText;
 
+    [SerializeField] FillBar healthFillBar;
+
     #region properties
     //public int PlayerHealth
     //{
@@ -54,6 +56,7 @@ public class HUD_Manager : MonoBehaviour
 
         ChangeUIState(startingUIState);
         playerMaxHealth = player.health;
+        healthFillBar.MaxValue = playerMaxHealth;
 
         //playerHealth = player.health;
         //PlayerHealth = PlayerMaxHealth;
@@ -68,8 +71,10 @@ public class HUD_Manager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        healthText.text = "Health: " + player.health + "/" + playerMaxHealth;
+        //healthText.text = "Health: " + player.health + "/" + playerMaxHealth;
         //manaText.text = "Mana: " + playerMana + "/" + PlayerMaxMana;
+
+        healthFillBar.CurrentValue = player.health;
     }
 
     /// <summary>
