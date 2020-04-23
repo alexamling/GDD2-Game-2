@@ -119,7 +119,14 @@ public class Player : Unit
 
         if(Input.GetKeyDown(KeyCode.L))
         {
-            
+
+            if (hit)
+            {
+                if (rayHit.collider.gameObject.GetComponent<NavMeshSurface>())
+                {
+                    unitContoller.EnemyNav.NavBrainGameObject.GetComponent<NavBrain>().Pyramid(rayHit.point, Mathf.PI /2);
+                }
+            }
         }
         // TODO: all other hotkeys
 

@@ -62,11 +62,11 @@ public class NavBrain : MonoBehaviour
 
 
 
-    public void FindPath(Vector3 target, List<Unit> units)
+    public void FindPath(Vector3 target)
     {
 
         nav.SetDestination(target);
-        childUnits = units;
+       
 
     }
     private void OnDrawGizmosSelected()
@@ -100,6 +100,23 @@ public class NavBrain : MonoBehaviour
             return childUnits;
         }
 
+    }
+
+    public void Pyramid(Vector3 dest, float radians)
+    {
+
+        float pyramidScale = 10.0f;
+        for (int i = 0; i < transform.childCount; i++)
+        {
+
+            float angle = (Mathf.PI / 6) * (i + 1) + radians;
+            Debug.Log(angle);
+            Vector3 childDest = new Vector3(dest.x + Mathf.Cos(angle) * pyramidScale, transform.position.y, dest.z + Mathf.Sin(angle) * pyramidScale);
+            transform.GetChild(i).gameObject.GetComponent<NavBrain>().Pyramid(childDest, radians);
+        }
+
+        FindPath(dest);
+        Debug.Log(dest);
     }
 
    

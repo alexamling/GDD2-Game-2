@@ -45,7 +45,7 @@ public class EnemyNav : MonoBehaviour
     public void FindPath(Vector3 target)
     {
        
-        rootNavBrain.FindPath(target, units);
+        rootNavBrain.FindPath(target);
     }
 
 
@@ -57,21 +57,7 @@ public class EnemyNav : MonoBehaviour
 
     public void CreateNavBrain(Transform t)
     {
-        //if (t.childCount < 3)
-        //{
-        //    Instantiate(navBrainPrefab, t);
-        //}
-        //
-        ////if not last navBrain in the hierarchy level, go to the "right"
-        //else if(t.GetSiblingIndex() < t.parent.childCount - 1)
-        //{
-        //    CreateNavBrain(t.parent.GetChild(t.GetSiblingIndex() + 1));
-        //}
-        //
-        //else
-        //{
-        //    CreateNavBrain(t.GetChild(0));
-        //}
+       
 
         Transform minDec = FindMinDecendents(t);
         if(FindNumDecendants(t) > treeSize)
@@ -180,5 +166,7 @@ public class EnemyNav : MonoBehaviour
         u.Nav = reciever;
         reciever.ChildUnits.Add(u);
     }
+
+
 
 }
