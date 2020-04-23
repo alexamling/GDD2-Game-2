@@ -3,7 +3,16 @@ guid: aa54ba004a163d146a02b5e5640cc9d5
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - MainMenu: {instanceID: 0}
+  - Instructions: {instanceID: 0}
+  - InGameHUD: {instanceID: 0}
+  - PauseMenu: {instanceID: 0}
+  - player: {fileID: 3626734594684974496, guid: a7d677c3c1da3e24783917ea22b8ad81,
+      type: 3}
+  - healthText: {instanceID: 0}
+  - manaText: {instanceID: 0}
+  - healthFillBar: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

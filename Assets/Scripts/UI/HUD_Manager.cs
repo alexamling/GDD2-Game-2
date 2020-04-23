@@ -1,8 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class HUD_Manager : MonoBehaviour
@@ -33,6 +35,9 @@ public class HUD_Manager : MonoBehaviour
 
     [SerializeField] FillBar healthFillBar;
 
+    // A list of all the objects in the scene, so they can be enabled and disabled to work with menu operations
+    //GameObject[] allObjects;
+
     #region properties
     //public int PlayerHealth
     //{
@@ -49,14 +54,26 @@ public class HUD_Manager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //allObjects = UnityEngine.SceneManagement.SceneManager.GetActiveScene().GetRootGameObjects();
+
         menus.Add(MainMenu);
         menus.Add(Instructions);
         menus.Add(InGameHUD);
         menus.Add(PauseMenu);
 
+        if (SceneManager.GetActiveScene().name == "GUI")
+        {
+            startingUIState = UIState.MainMenu;
+        } else if (SceneManager.GetActiveScene().name == "Main")
+        {
+            startingUIState = UIState.InGameHUD;
+
+            playerMaxHealth = player.health;
+            healthFillBar.MaxValue = playerMaxHealth;
+        }
+
+
         ChangeUIState(startingUIState);
-        playerMaxHealth = player.health;
-        healthFillBar.MaxValue = playerMaxHealth;
 
         //playerHealth = player.health;
         //PlayerHealth = PlayerMaxHealth;
@@ -74,7 +91,10 @@ public class HUD_Manager : MonoBehaviour
         //healthText.text = "Health: " + player.health + "/" + playerMaxHealth;
         //manaText.text = "Mana: " + playerMana + "/" + PlayerMaxMana;
 
-        healthFillBar.CurrentValue = player.health;
+        if ((currentUIState == UIState.InGameHUD) && (player != null))
+        {
+            healthFillBar.CurrentValue = player.health;
+        }
     }
 
     /// <summary>
@@ -108,8 +128,9 @@ public class HUD_Manager : MonoBehaviour
     /// shows the MainMenu of the game
     /// </summary>
     public void ShowMainMenu()
-    {
+    {        
         ChangeUIState(UIState.MainMenu);
+        SceneManager.LoadScene("GUI");
     }
 
     public void ShowInstructions()
@@ -121,16 +142,21 @@ public class HUD_Manager : MonoBehaviour
     /// sets current ui state to InGameHud
     /// </summary>
     public void ShowGameHUD()
-    {
+    {        
         ChangeUIState(UIState.InGameHUD);
+        SceneManager.LoadScene("Main");
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public void ShowPause()
     {
         ChangeUIState(UIState.PauseMenu);
     }
 
     #endregion
+
     //switch (currentUIState)
     //{
     //    case UIState.MainMenu:

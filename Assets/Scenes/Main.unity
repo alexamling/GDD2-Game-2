@@ -264,6 +264,21 @@ PrefabInstance:
       propertyPath: m_textInfo.pageCount
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2954132437051175826, guid: a109a454bceb16a489366ba94cd1977c,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3241713138371762865, guid: a109a454bceb16a489366ba94cd1977c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4299394725042878315, guid: a109a454bceb16a489366ba94cd1977c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5024957844224583718, guid: a109a454bceb16a489366ba94cd1977c,
         type: 3}
       propertyPath: m_textInfo.characterCount
@@ -282,6 +297,11 @@ PrefabInstance:
     - target: {fileID: 5024957844224583718, guid: a109a454bceb16a489366ba94cd1977c,
         type: 3}
       propertyPath: m_textInfo.pageCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5092925891753042700, guid: a109a454bceb16a489366ba94cd1977c,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5991222245954699858, guid: a109a454bceb16a489366ba94cd1977c,
@@ -454,6 +474,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: GUI
       objectReference: {fileID: 0}
+    - target: {fileID: 6937448566025039101, guid: a109a454bceb16a489366ba94cd1977c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6937448566216336168, guid: a109a454bceb16a489366ba94cd1977c,
         type: 3}
       propertyPath: m_textInfo.characterCount
@@ -517,7 +542,7 @@ PrefabInstance:
     - target: {fileID: 7472754473382811302, guid: a109a454bceb16a489366ba94cd1977c,
         type: 3}
       propertyPath: startingUIState
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7874969046673562842, guid: a109a454bceb16a489366ba94cd1977c,
         type: 3}
@@ -1233,6 +1258,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 1961659040209784471, guid: a7d677c3c1da3e24783917ea22b8ad81,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8652715289036960864, guid: a7d677c3c1da3e24783917ea22b8ad81,
         type: 3}
