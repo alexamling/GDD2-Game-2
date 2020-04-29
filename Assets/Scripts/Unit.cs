@@ -114,7 +114,7 @@ public class Unit : MonoBehaviour, IDamageable
     public void OnHit(float damage, GameObject origin)
     {
         health -= damage;
-        //Debug.Log("hit");
+        nav.childUnits.Remove(this);
     }
 
     public UnitState UnitState

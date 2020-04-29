@@ -12,6 +12,7 @@ public class NavBrain : MonoBehaviour
     public List<Unit> childUnits;
     public bool available;
     private float timeSinceUnavailable;
+    
 
     void Start()
     {
