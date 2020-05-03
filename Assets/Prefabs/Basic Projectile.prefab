@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2278830832354302436}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.392, y: 0, z: 0}
+  m_LocalPosition: {x: 24.91, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4227742606918544954}
@@ -42,14 +42,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 2278830832354302436}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e2f1e735dd7b784d93cea3cea69eeb2, type: 3}
+  m_Script: {fileID: 11500000, guid: c84cc86371082a4449102370b24472b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data:
-    damage: 5
-    range: 0
-    speed: 1
-    radius: 0
+  direction: {x: 0, y: 0, z: 0}
+  damage: 50
+  range: 10
+  speed: 1
+  radius: 1
+  lifetime: 1
 --- !u!135 &9161965619082180011
 SphereCollider:
   m_ObjectHideFlags: 0

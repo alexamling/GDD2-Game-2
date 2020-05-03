@@ -2,11 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using System;
 
 public enum ProjectileType { basic };
+public enum Ability { none, dash, explosion, bolt };
+
+[Serializable]
+public struct PlayerProjectiles
+{
+    public GameObject BasicProjectile;
+    public GameObject ExplosionParticle;
+    public GameObject BoltParticle;
+    public GameObject DashParticle;
+}
 public class Player : Unit
 {
-    public GameObject[] projectiles;
+    public PlayerProjectiles projectiles;
 
     // TODO Implement this, maybe...
     private Transform inactiveProjectiles;
@@ -22,6 +33,7 @@ public class Player : Unit
     new private Rigidbody rigidbody;
     private Vector3 orthoRight;
     private Vector3 orthoUp;
+    private Ability BufferedInput;
 
     private void Awake()
     {
@@ -104,7 +116,7 @@ public class Player : Unit
             // read raycast
             if (hit)
             {
-                FireProjectile(ProjectileType.basic, rayHit.point);
+                ActivateAbility(rayHit.point);
             }
         }
 
@@ -142,14 +154,53 @@ public class Player : Unit
             }
         }
 
+
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            BufferedInput = Ability.dash;
+            Debug.Log("dash queued");
+        }
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            BufferedInput = Ability.bolt;
+            Debug.Log("bolt queued");
+        }
+
         // esc pressed
         // quit - TODO: pause menu
     }
 
-    public void FireProjectile(ProjectileType type, Vector3 target)
+    void ActivateAbility(Vector3 target)
     {
-        GameObject proj = Instantiate(projectiles[(int)type]);
-        proj.transform.position = transform.position;
+        switch (BufferedInput)
+        {
+            case Ability.dash:
+
+                break;
+            case Ability.bolt:
+                BoltAttack(target);
+                break;
+            case Ability.explosion:
+                break;
+            default:
+                BasicAttack(target);
+                break;
+        }
+        BufferedInput = Ability.none;
+    }
+
+    public void BasicAttack(Vector3 target)
+    {
+        GameObject proj = Instantiate(projectiles.BasicProjectile);
+        proj.transform.position = transform.position + new Vector3(0, 3, 0);
         proj.GetComponent<Projectile>().Init(target);
+    }
+
+    public void BoltAttack(Vector3 target)
+    {
+        GameObject proj = Instantiate(projectiles.BoltParticle);
+        proj.transform.position = transform.position + new Vector3(0,3,0);
+        proj.GetComponent<Projectile>().Init(target - transform.position);
+        Debug.Log("bolt fired");
     }
 }

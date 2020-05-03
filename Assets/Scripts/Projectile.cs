@@ -3,46 +3,36 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-[Serializable]
-public struct ProjectileData
+public abstract class Projectile : MonoBehaviour
 {
+    public Vector3 direction;
     public float damage;
     public float range;
     public float speed;
     public float radius;
-}
+    public float lifetime;
+    protected float startTime;
 
-public class Projectile : MonoBehaviour
-{
-    private Vector3 direction;
-    public ProjectileData data;
+    public abstract void Init(Vector3 target);
 
-    public void Init(Vector3 target)
+    public void Start()
     {
-        direction = (target-transform.position);
-        direction.y = 0;
-        direction = Vector3.Normalize(direction);
-        Destroy(gameObject, 1);
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+        startTime = Time.time;
+        Destroy(gameObject, lifetime);
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.position += direction * data.speed;
+        transform.position += direction * speed;
     }
 
-    private void OnTriggerEnter(Collider other)
+    protected void OnTriggerEnter(Collider other)
     {
         IDamageable hitObj = other.gameObject.GetComponent<IDamageable>();
         if (hitObj != null)
         {
-            hitObj.OnHit(data.damage, gameObject);
+            hitObj.OnHit(damage, gameObject);
         }
     }
 }
