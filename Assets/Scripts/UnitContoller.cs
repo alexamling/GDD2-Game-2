@@ -115,6 +115,7 @@ public class UnitContoller : MonoBehaviour
             for (int j = 0; j < enemyUnitData[i].activeInstances.transform.childCount; j++)
             {
                 Unit instance = enemyUnitData[i].activeInstances.transform.GetChild(j).GetComponent<Unit>();
+                if (instance.health <= 0) DespawnUnit(instance);
                 //instance.PathTo(target);
             }
         }
@@ -127,7 +128,10 @@ public class UnitContoller : MonoBehaviour
 
     public void DespawnUnit(Unit unit)
     {
-
+        unit.nav.childUnits.Remove(unit);
+        unit.gameObject.SetActive(false);
+        unit.transform.parent = enemyUnitData[0].inactiveInstances.transform;
+        enemyUnitData[0].activeCount--;
     }
 
     public void SpawnUnits(/*TODO: input values*/)

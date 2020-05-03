@@ -72,9 +72,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db462f9cc8f83d4459b44bab6f7a5c9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rb: {fileID: 0}
   health: 10
+  nav: {fileID: 0}
   projectiles:
-  - {fileID: 2278830832354302436, guid: bcf66916ec09035469b7f9045a557e48, type: 3}
+    BasicProjectile: {fileID: 0}
+    ExplosionParticle: {fileID: 0}
+    BoltParticle: {fileID: 8501017747226653994, guid: 19b4ec13c8278544abe724613bfb4582,
+      type: 3}
+    DashParticle: {fileID: 0}
   unitContoller: {fileID: 8652715289036960864}
   playerSpeed: 5000
   zoomSpeed: 1

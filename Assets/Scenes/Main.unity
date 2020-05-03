@@ -926,9 +926,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2006967630}
-  - {fileID: 2113469611}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1458415266
 GameObject:
@@ -1073,6 +1072,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1b3e69f570e2f1948a19213a0a808d32, type: 3}
+--- !u!1 &1679990016 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2278830832354302436, guid: bcf66916ec09035469b7f9045a557e48,
+    type: 3}
+  m_PrefabInstance: {fileID: 1818683867309430962}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2006967630 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7324114487583988618, guid: 1b3e69f570e2f1948a19213a0a808d32,
@@ -1371,11 +1376,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 1961659040209784471, guid: a7d677c3c1da3e24783917ea22b8ad81,
+    - target: {fileID: 3626734594684974496, guid: a7d677c3c1da3e24783917ea22b8ad81,
         type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
+      propertyPath: projectiles.BasicProjectile
+      value: 
+      objectReference: {fileID: 1679990016}
     - target: {fileID: 8652715289036960864, guid: a7d677c3c1da3e24783917ea22b8ad81,
         type: 3}
       propertyPath: enemyUnitData.Array.data[0].prefab

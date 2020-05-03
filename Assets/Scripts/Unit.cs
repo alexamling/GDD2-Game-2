@@ -60,7 +60,6 @@ public class Unit : MonoBehaviour, IDamageable
     // Update is called once per frame
     void Update()
     {
-        //if (health <= 0) Destroy(gameObject);
         switch(unitState)
         {
             case UnitState.Moving:
@@ -114,7 +113,6 @@ public class Unit : MonoBehaviour, IDamageable
     public void OnHit(float damage, GameObject origin)
     {
         health -= damage;
-        nav.childUnits.Remove(this);
     }
 
     public UnitState UnitState
